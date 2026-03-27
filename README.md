@@ -1,4 +1,4 @@
-# Classification Supervisée — CBIR (Oiseaux vs Camions)
+# Classification Supervisée — CBIR
 
 ## Résultats par algorithme
 
