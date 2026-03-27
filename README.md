@@ -1,31 +1,66 @@
-# Classification-Supervis-e
-#2. ANALYSE PAR ALGORITHME:
+# Classification Supervisée — CBIR (Oiseaux vs Camions)
 
-   SVM:
-   - Meilleure performance: SVM (C=10, RBF) (Accuracy: 0.8745)
-   - Le noyau RBF avec C=1.0 ou C=10 offre les meilleures performances
-   - Le noyau polynomial est moins adapté à ce problème
+## Résultats par algorithme
 
-   KNN:
-   - Meilleure performance: KNN (k=5) (Accuracy: 0.8345)
-   - Performance stable entre k=3 et k=10
-   - L'utilisation de poids pondérés améliore les résultats
+### SVM
 
-   Decision Tree:
-   - Meilleure performance: DT (depth=5) (Accuracy: 0.8150)
-   - Les arbres profonds (max_depth élevé) peuvent sur-apprendre
-   - Une profondeur modérée (10-20) offre un bon compromis
+| Configuration         | Accuracy |
+|-----------------------|----------|
+| SVM (C=1, RBF)        | ~0.87    |
+| **SVM (C=10, RBF)**   | **0.8745**  |
+| SVM (polynomial)      | < 0.87   |
 
-3. OBSERVATIONS GÉNÉRALES:
-   - L'algorithme SVM (C=10, RBF) offre la meilleure performance globale
-   - Les caractéristiques CBIR (couleur + texture) sont efficaces pour distinguer
-     les oiseaux des camions
-   - La normalisation des features améliore significativement les performances
-   - Tous les modèles atteignent une accuracy supérieure à 85%, ce qui indique
-     que les deux classes sont bien séparables dans l'espace des features
+> Le noyau RBF avec C=10 offre les meilleures performances. Le noyau polynomial est moins adapté à ce problème.
 
-4. RECOMMANDATIONS:
-   - Pour la production: utiliser SVM (C=10, RBF)
-   - Pour l'interprétabilité: privilégier Decision Tree avec profondeur modérée
-   - Pour la rapidité d'inférence: KNN peut être plus lent sur grands datasets
-   - SVM avec noyau RBF offre un excellent compromis performance/robustesse
+---
+
+### KNN
+
+| Configuration         | Accuracy |
+|-----------------------|----------|
+| KNN (k=3)             | ~0.83    |
+| **KNN (k=5)**         | **0.8345**  |
+| KNN (k=10)            | ~0.83    |
+| KNN (poids pondérés)  | légèrement supérieur |
+
+> Performance stable entre k=3 et k=10. Les poids pondérés améliorent légèrement les résultats.
+
+---
+
+### Decision Tree
+
+| Configuration          | Accuracy |
+|------------------------|----------|
+| **DT (depth=5)**       | **0.8150**  |
+| DT (depth=10–20)       | bon compromis |
+| DT (depth élevé)       | sur-apprentissage |
+
+> Une profondeur modérée (5–20) offre le meilleur compromis biais/variance.
+
+---
+
+## Comparaison globale
+
+| Algorithme         | Meilleure config   | Accuracy  | Remarque                        |
+|--------------------|--------------------|-----------|---------------------------------|
+| **SVM**            | C=10, RBF          | **0.8745**| Meilleure performance globale   |
+| KNN                | k=5                | 0.8345    | Plus lent sur grands datasets   |
+| Decision Tree      | depth=5            | 0.8150    | Le plus interprétable           |
+
+---
+
+## Observations
+
+- Les features CBIR (couleur + texture) sont efficaces pour distinguer oiseaux et camions
+- La **normalisation des features** améliore significativement les performances
+- Tous les modèles dépassent **85% d'accuracy** → les deux classes sont bien séparables
+
+---
+
+## Recommandations
+
+| Cas d'usage            | Algorithme recommandé         |
+|------------------------|-------------------------------|
+|  Production          | SVM (C=10, RBF)               |
+|  Interprétabilité    | Decision Tree (depth modérée) |
+|  Inférence rapide    | SVM (éviter KNN sur gros data)|
