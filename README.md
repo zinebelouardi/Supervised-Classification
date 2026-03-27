@@ -49,13 +49,6 @@
 
 ---
 
-## Observations
-
-- Les features CBIR (couleur + texture) sont efficaces pour distinguer oiseaux et camions
-- La **normalisation des features** améliore significativement les performances
-- Tous les modèles dépassent **85% d'accuracy** → les deux classes sont bien séparables
-
----
 
 ## Recommandations
 
